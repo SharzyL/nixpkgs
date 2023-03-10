@@ -164,6 +164,7 @@ let
         [ "-rtlib=compiler-rt"
           "-Wno-unused-command-line-argument"
           "-B${targetLlvmLibraries.compiler-rt}/lib"
+          "-L${targetLlvmLibraries.libunwind}/lib"
         ]
         ++ lib.optional (!stdenv.targetPlatform.isWasm) "--unwindlib=libunwind"
         ++ lib.optional
@@ -226,20 +227,20 @@ let
 
     compiler-rt-libc = callPackage ./compiler-rt {
       inherit llvm_meta;
-      stdenv = if stdenv.hostPlatform.useLLVM or false
+      stdenv = if stdenv.hostPlatform.useLLVM or stdenv.hostPlatform.isRiscV32
                then overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
                else stdenv;
     };
 
     compiler-rt-no-libc = callPackage ./compiler-rt {
       inherit llvm_meta;
-      stdenv = if stdenv.hostPlatform.useLLVM or false
+      stdenv = if stdenv.hostPlatform.useLLVM or stdenv.hostPlatform.isRiscV32
                then overrideCC stdenv buildLlvmTools.clangNoCompilerRt
                else stdenv;
     };
 
     # N.B. condition is safe because without useLLVM both are the same.
-    compiler-rt = if stdenv.hostPlatform.isAndroid
+    compiler-rt = if stdenv.hostPlatform.isAndroid or stdenv.buildPlatform != stdenv.hostPlatform
       then libraries.compiler-rt-libc
       else libraries.compiler-rt-no-libc;
 
@@ -270,7 +271,6 @@ let
 
     libunwind = callPackage ./libunwind {
       inherit llvm_meta;
-      stdenv = overrideCC stdenv buildLlvmTools.clangNoLibcxx;
     };
 
     openmp = callPackage ./openmp {
