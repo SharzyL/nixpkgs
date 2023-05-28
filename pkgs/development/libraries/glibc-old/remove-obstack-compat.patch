@@ -1,0 +1,15 @@
+diff --git a/malloc/obstack.c b/malloc/obstack.c
+index 5786da0aa4..1ddf062c5c 100644
+--- a/malloc/obstack.c
++++ b/malloc/obstack.c
+@@ -116,8 +116,8 @@ int obstack_exit_failure = EXIT_FAILURE;
+ /* A looong time ago (before 1994, anyway; we're not sure) this global variable
+    was used by non-GNU-C macros to avoid multiple evaluation.  The GNU C
+    library still exports it because somebody might use it.  */
+-struct obstack *_obstack_compat;
+-compat_symbol (libc, _obstack_compat, _obstack, GLIBC_2_0);
++// struct obstack *_obstack_compat;
++// compat_symbol (libc, _obstack_compat, _obstack, GLIBC_2_0);
+ #  endif
+ # endif
+ 

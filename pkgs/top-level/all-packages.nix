@@ -20650,6 +20650,10 @@ with pkgs;
     stdenv = gccStdenv; # doesn't compile without gcc
   };
 
+  glibc-old = callPackage ../development/libraries/glibc-old {
+    stdenv = overrideCC gccStdenv buildPackages.gcc48; # doesn't compile without gcc
+  };
+
   mtrace = callPackage ../development/libraries/glibc/mtrace.nix { };
 
   # Provided by libc on Operating Systems that use the Extensible Linker Format.
