@@ -15147,6 +15147,30 @@ with pkgs;
     isl = if !stdenv.isDarwin then isl_0_20 else null;
   }));
 
+  bintools-old = wrapBintoolsWith {
+    bintools = bintools-unwrapped;
+    libc = glibc-old;
+  };
+
+  gcc12-old = lowPrio (wrapCCWith {
+    cc = callPackage ../development/compilers/gcc/12 {
+      inherit noSysDirs;
+
+      reproducibleBuild = true;
+      profiledCompiler = false;
+
+      libcCross = if stdenv.targetPlatform != stdenv.buildPlatform then libcCross else null;
+      threadsCross = if stdenv.targetPlatform != stdenv.buildPlatform then threadsCross else { };
+
+      isl = if !stdenv.isDarwin then isl_0_20 else null;
+    };
+    bintools = bintools-old;
+  });
+
+  stdenv-old = overrideCC stdenv gcc12-old;
+
+  useOldGlibc = p: p.override { stdenv = stdenv-old; };
+
   gcc13 = lowPrio (wrapCC (callPackage ../development/compilers/gcc/13 {
     inherit noSysDirs;
 
