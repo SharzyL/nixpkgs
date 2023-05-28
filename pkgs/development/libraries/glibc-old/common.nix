@@ -59,7 +59,7 @@ stdenv.mkDerivation ({
   patches =
     [
       /* Allow NixOS and Nix to handle the locale-archive. */
-      ./nix-locale-archive.patch
+      # ./nix-locale-archive.patch
 
       /* Don't use /etc/ld.so.cache, for non-NixOS systems.  */
       ./dont-use-system-ld-so-cache.patch
