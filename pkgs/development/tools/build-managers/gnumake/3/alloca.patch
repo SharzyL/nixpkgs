@@ -1,0 +1,41 @@
+diff '--color=auto' -rc make-3.82-orig/glob/glob.c make-3.82/glob/glob.c
+*** make-3.82-orig/glob/glob.c	2023-05-28 16:49:24.518347962 +0800
+--- make-3.82/glob/glob.c	2023-05-28 17:00:12.765786406 +0800
+***************
+*** 208,216 ****
+  #endif /* __GNU_LIBRARY__ || __DJGPP__ */
+  
+  
+! #if !defined __alloca && !defined __GNU_LIBRARY__
+  
+! # ifdef	__GNUC__
+  #  undef alloca
+  #  define alloca(n)	__builtin_alloca (n)
+  # else	/* Not GCC.  */
+--- 208,216 ----
+  #endif /* __GNU_LIBRARY__ || __DJGPP__ */
+  
+  
+! #if 1
+  
+! # if 1
+  #  undef alloca
+  #  define alloca(n)	__builtin_alloca (n)
+  # else	/* Not GCC.  */
+***************
+*** 231,237 ****
+  
+  #endif
+  
+! #ifndef __GNU_LIBRARY__
+  # define __stat stat
+  # ifdef STAT_MACROS_BROKEN
+  #  undef S_ISDIR
+--- 231,237 ----
+  
+  #endif
+  
+! #if 1
+  # define __stat stat
+  # ifdef STAT_MACROS_BROKEN
+  #  undef S_ISDIR

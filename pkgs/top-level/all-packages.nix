@@ -18508,6 +18508,9 @@ with pkgs;
 
   gnumake = callPackage ../development/tools/build-managers/gnumake { };
   gnumake42 = callPackage ../development/tools/build-managers/gnumake/4.2 { };
+  gnumake3 = callPackage ../development/tools/build-managers/gnumake/3 {
+    stdenv = overrideCC gccStdenv buildPackages.gcc48;
+  };
 
   go-licenses = callPackage ../development/tools/misc/go-licenses  { };
 
