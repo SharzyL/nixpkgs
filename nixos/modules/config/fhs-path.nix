@@ -28,13 +28,8 @@
       pathsToLink = [ "/lib" ];
     };
 
-    system.activationScripts.fhsLib = if config.environment.fhsLib != null
-      then ''
-        ln -sfn ${config.environment.fhsLib}/lib /.lib.tmp
-        mv /.lib.tmp /lib # atomically replace /lib
-      ''
-      else ''
-        rm -f /lib
-      '';
+    systemd.tmpfiles.rules = lib.mkIf (config.environment.fhsLib != null) [
+      "L+ /lib64 - - - - ${config.environment.fhsLib}/lib"
+    ];
   };
 }
