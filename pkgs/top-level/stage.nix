@@ -197,6 +197,17 @@ let
       };
     };
 
+    pkgsOldGlibc = nixpkgsFun {
+      overlays = [
+        (self': super': {
+          pkgsOldGlibc = super';
+        })
+      ] ++ overlays;
+      crossSystem = stdenv.hostPlatform // {
+        useOldGlibc = true;
+      };
+    };
+
     # All packages built with the Musl libc. This will override the
     # default GNU libc on Linux systems. Non-Linux systems are not
     # supported. 32-bit is also not supported.

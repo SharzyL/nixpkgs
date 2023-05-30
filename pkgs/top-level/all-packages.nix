@@ -15149,7 +15149,7 @@ with pkgs;
 
   bintools-old = wrapBintoolsWith {
     bintools = bintools-unwrapped;
-    libc = glibc-old;
+    libc = buildPackages.glibc-old;
   };
 
   gcc12-old = lowPrio (wrapCCWith {
