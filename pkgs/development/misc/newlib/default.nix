@@ -23,6 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
+  enableParallelBuilding = true;
+
   depsBuildBuild = [
     buildPackages.stdenv.cc
     texinfo # for makeinfo
